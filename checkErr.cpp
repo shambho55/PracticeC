@@ -1,0 +1,13 @@
+#include <iostream>
+using namespace std;
+
+void func(int a){
+	int b = 10;
+	a = b + 10;
+	cout << a << endl;
+}
+int main(){
+	int a = 10;
+	func(a);
+	cout << a << endl;
+}
