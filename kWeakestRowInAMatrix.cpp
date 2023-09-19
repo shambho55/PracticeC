@@ -8,21 +8,57 @@ using namespace std;
         return a.second < b.second;
     }
     vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
-        vector<pair<int,int>> p;
+        
+    	// Approach 1 Used by me
+        // vector<pair<int,int>> p;
+        // int m = mat.size(),n = mat[0].size();
+        // for(int i = 0;i < m;i++){
+        //     int count = 0;
+        //     for(int j = 0;j < n;j++){
+        //         if(mat[i][j] == 1) count++;
+        //     }
+        //     p.push_back({i,count});
+        // }
+        // sort(p.begin(),p.end(),cmp);
+        // vector<int> a(k);
+        // for(int i = 0;i < k;i++){
+        //     a[i] = p[i].first;
+        // }
+        // return a;
+
+        //Approach 2 space optimization
+    	// priority_queue<pair<int,int>> pq;
+        // int m = mat.size(),n = mat[0].size();
+        // for(int i = 0;i < m;i++){
+        //     int count = 0;
+        //     for(int j = 0;j < n;j++){
+        //         if(mat[i][j] != 1) break;
+        //         count++;
+        //     }
+        //     pq.push({count,i});
+        //     if(pq.size() > k) pq.pop();
+        // }
+        // vector<int> a;
+        // while(pq.size() > 0){
+        //     a.push_back(pq.top().second);
+        //     pq.pop();
+        // }
+        // reverse(a.begin(),a.end());
+        // return a;
+
+        // Approach 3 Time Optimization
         int m = mat.size(),n = mat[0].size();
+        vector<pair<int,int>> p;
         for(int i = 0;i < m;i++){
-            int count = 0;
-            for(int j = 0;j < n;j++){
-                if(mat[i][j] == 1) count++;
-            }
-            p.push_back({i,count});
+            int l = lower_bound(mat[i].begin(),mat[i].end(),0,greater<int>()) - mat[i].begin();
+            p.push_back({l,i});
         }
-        sort(p.begin(),p.end(),cmp);
-        vector<int> a(k);
+        sort(p.begin(),p.end());
+        vector<int> ans(k);
         for(int i = 0;i < k;i++){
-            a[i] = p[i].first;
+            ans[i] = p[i].second;
         }
-        return a;
+        return ans;
     }
 
 int main(){
