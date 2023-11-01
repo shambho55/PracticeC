@@ -19,13 +19,15 @@ int main() {
         for(int i = 0;i <= n - k;i++){
             int ch = 0;
             for(int j = i;j < (i + k);j++){
-                if(j < n) ch = ch | a[j];
+                if(a[j] & 1){
+                    ch = 1;
+                    break;
+                }
             }
-            cout << ch << "\n";
-            if(ch % 2 != 0) ans++;
+            if(ch) ans++;
         }
-        cout << "\n";
-        // cout << ans << "\n";
+        // cout << "\n";
+        cout << ans << "\n";
     }
 	return 0;
 }
